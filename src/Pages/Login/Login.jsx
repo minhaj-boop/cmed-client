@@ -39,7 +39,7 @@ const Login = () => {
       <div className="max-w-md w-full bg-white rounded p-6 space-y-4">
         <form onSubmit={handleSubmit}>
           <div className="flex justify-center items-center mb-4">
-            <p className="text-gray-600 uppercase">Sign In</p>
+            <p className="text-gray-600 uppercase">Log In</p>
             {/* <h2 className="text-xl font-bold">Join our community</h2> */}
           </div>
           <div className="pb-2">
@@ -72,9 +72,9 @@ const Login = () => {
           <div className="flex justify-center items-center">
             <button
               type="submit"
-              className="w-[50%] py-4 bg-orange-500 hover:bg-orange-400 text-sm font-bold text-gray-50 transition duration-200"
+              className="w-[50%] py-4 bg-pink-400 hover:bg-pink-500 text-sm font-bold text-gray-50 transition duration-200 rounded-[5px]"
             >
-              Sign In
+              Log In
             </button>
           </div>
           <div className="flex items-center justify-between">
