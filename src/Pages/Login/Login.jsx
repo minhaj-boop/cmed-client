@@ -15,14 +15,13 @@ const Login = () => {
     e.preventDefault();
     try {
       const url = "http://localhost:8080/api/auth";
+      // const url ="https://bb212102-2fab-4fae-9227-3b2b24cf1275.mock.pstmn.io/auth/api/login/";
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
       const user = localStorage.getItem("token");
       if (user) {
         window.location = "/chart";
       }
-      // navigate("/upload");
-      // console.log(res.message, data);
     } catch (error) {
       if (
         error.response &&
@@ -76,23 +75,6 @@ const Login = () => {
             >
               Log In
             </button>
-          </div>
-          <div className="flex items-center justify-between">
-            {/* <div className="flex flex-row items-center">
-              <input
-                type="checkbox"
-                className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
-              />
-              <label
-                for="comments"
-                className="ml-2 text-sm font-normal text-gray-600"
-              >
-                Remember me
-              </label>
-            </div> */}
-            {/* <div>
-                <a className="text-sm text-blue-600 hover:underline" href="#">Forgot password?</a>
-            </div> */}
           </div>
         </form>
       </div>
