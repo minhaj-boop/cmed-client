@@ -15,7 +15,6 @@ const Chart = () => {
     localStorage.removeItem("token");
     window.location.reload();
     window.location = "/";
-    // navigate("/admin");
   };
 
   const handleTextInputChange = (e) => {
