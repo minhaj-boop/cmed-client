@@ -29,6 +29,9 @@ const Login = () => {
         error.response.status <= 500
       ) {
         setError(error.response.data.message);
+        setTimeout(() => {
+          setError("");
+        }, 3000);
       }
     }
   };
