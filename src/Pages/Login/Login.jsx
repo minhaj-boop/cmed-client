@@ -3,22 +3,31 @@ import { useState } from "react";
 import axios from "axios";
 
 const Login = () => {
+  //states
+  //states for authentication
   const [data, setData] = useState({ email: "", password: "" });
+  //states for error messages
   const [error, setError] = useState("");
   // const navigate = useNavigate();
 
+  //handle changes in the inputs
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
 
+  //handle the submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      //api call
       const url = "http://localhost:8080/api/auth";
       // const url ="https://bb212102-2fab-4fae-9227-3b2b24cf1275.mock.pstmn.io/auth/api/login/";
       const { data: res } = await axios.post(url, data);
+      //storing jwt in the local storage
       localStorage.setItem("token", res.data);
+      // get token from local storage
       const user = localStorage.getItem("token");
+      //if logged in then directed to chart page
       if (user) {
         window.location = "/chart";
       }

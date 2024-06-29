@@ -6,54 +6,69 @@ import Modal from "react-modal";
 Modal.setAppElement("#root");
 
 const Chart = () => {
+  //states
   const [textInput, setTextInput] = useState("");
   const [dropdownInput, setDropdownInput] = useState("Line Chart");
   const [charts, setCharts] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  //handle logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.reload();
     window.location = "/";
   };
 
+  //handle change in text input
   const handleTextInputChange = (e) => {
     setTextInput(e.target.value);
   };
 
+  //handle change in dropdown
   const handleDropdownInputChange = (e) => {
     setDropdownInput(e.target.value);
   };
 
+  //handle submit on form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    //alert is text input is empty
+    if (!textInput) {
+      alert("Please Enter a chart name");
+      return;
+    }
+    // if text input is not empty then execute
     if (textInput && dropdownInput) {
       const newChart = {
         name: textInput,
         type: dropdownInput,
       };
       setCharts([...charts, newChart]);
-      setTextInput("");
-      setDropdownInput("Line Chart");
+      // setTextInput("");
+      setDropdownInput(textInput);
     }
   };
 
+  // on delete button click load the modal
   const handleDeleteClick = () => {
     setShowModal(true);
   };
 
+  // handle chart deletion
   const handleDeleteChart = (index) => {
     const updatedCharts = charts.filter((_, i) => i !== index);
     setCharts(updatedCharts);
-    setShowModal(false);
+    // setShowModal(false);
   };
 
+  // delete all charts at once
   const handleDeleteAllCharts = () => {
     setCharts([]);
-    setShowModal(false);
+    // setShowModal(false);
   };
 
+  // chart options
   const getChartOptions = (chart) => {
     const commonOptions = {
       title: {
@@ -95,27 +110,33 @@ const Chart = () => {
 
   return (
     <>
-      <div className="w-screen h-screen flex flex-col items-center justify-center border-2 border-red-400 px-[50px]">
+      <div className="w-screen h-screen flex flex-col items-center justify-center px-[50px]">
         <div className="h-[150px] w-full px-[50px] flex justify-between items-center border-2 border-gray-200 my-8 rounded-[5px]">
           <form
             onSubmit={handleSubmit}
-            className="flex gap-4 items-center border-2 border-green-400 p-2 rounded-[5px]"
+            className="flex gap-4 items-center p-2 rounded-[5px]"
           >
             <input
               type="text"
               value={textInput}
               onChange={handleTextInputChange}
-              placeholder="Enter text"
-              className="border-2 border-gray-200 rounded-[5px] px-2 py-1"
+              placeholder="Enter chart name"
+              className="px-[40px] border-[2px] border-red-300 rounded-[5px] py-[20px] focus:border-[2px] focus:border-red-400"
             />
             <select
               value={dropdownInput}
               onChange={handleDropdownInputChange}
-              className="border-2 border-gray-200 rounded-[5px] px-2 py-1"
+              className="px-[40px] border-[2px] border-red-300 rounded-[5px] py-[20px] focus:border-[2px] focus:border-red-400"
             >
-              <option value="Line Chart">Line Chart</option>
-              <option value="Bar Chart">Bar Chart</option>
-              <option value="Area Chart">Area Chart</option>
+              <option className="text-[20px]" value="Line Chart">
+                Line Chart
+              </option>
+              <option className="text-[20px]" value="Bar Chart">
+                Bar Chart
+              </option>
+              <option className="text-[20px]" value="Area Chart">
+                Area Chart
+              </option>
             </select>
           </form>
           <div className="flex justify-between items-center gap-4">
@@ -142,11 +163,13 @@ const Chart = () => {
         </div>
         <div className="w-full overflow-y-scroll h-full px-[50px] border-2 border-gray-200 rounded-[5px]">
           {charts.map((chart, index) => (
-            <HighchartsReact
-              key={index}
-              highcharts={Highcharts}
-              options={getChartOptions(chart)}
-            />
+            <div className="border-[2px] border-gray-400 my-[10px]">
+              <HighchartsReact
+                key={index}
+                highcharts={Highcharts}
+                options={getChartOptions(chart)}
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -161,13 +184,13 @@ const Chart = () => {
                 <>
                   <ul className="mb-4">
                     {charts.map((chart, index) => (
-                      <li
-                        key={index}
-                        className="flex justify-between items-center"
-                      >
-                        {chart.name}
+                      <li key={index}>
+                        <span className="uppercase px-[10px] py-[5px] border-2 border-purple-400 rounded-[5px] mb-4 mr-[10px] bg-green-500">
+                          {" "}
+                          {chart.name}
+                        </span>
                         <button
-                          className="text-red-500"
+                          className="uppercase px-[10px] py-[5px] border-2 border-purple-400 rounded-[5px] mb-4 ml-[10px] hover:bg-red-600"
                           onClick={() => handleDeleteChart(index)}
                         >
                           Delete
@@ -176,7 +199,7 @@ const Chart = () => {
                     ))}
                   </ul>
                   <button
-                    className="uppercase px-[30px] py-[15px] border-2 border-purple-400 rounded-[5px] mb-4"
+                    className="hover:bg-red-600 uppercase px-[30px] py-[15px] border-2 border-purple-400 rounded-[5px] mb-4"
                     onClick={handleDeleteAllCharts}
                   >
                     Delete All Charts
@@ -186,7 +209,7 @@ const Chart = () => {
                 <div>NO CHARTS CREATED!</div>
               )}
               <button
-                className="uppercase px-[30px] py-[15px] border-2 border-purple-400 rounded-[5px]"
+                className="hover:bg-gray-500 uppercase px-[30px] py-[15px] border-2 border-purple-400 rounded-[5px]"
                 onClick={() => setShowModal(false)}
               >
                 Cancel
