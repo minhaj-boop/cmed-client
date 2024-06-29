@@ -19,7 +19,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://cmed-server.vercel.app/api/users";
+      const url = "https://cmed-server.vercel.app/api/users";
       const { data: res } = await axios.post(url, data);
       navigate("/");
       console.log(res.message);

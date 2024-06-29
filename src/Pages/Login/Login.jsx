@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     try {
       //api call
-      const url = "http://cmed-server.vercel.app/api/auth";
+      const url = "https://cmed-server.vercel.app/api/auth";
       // const url ="https://bb212102-2fab-4fae-9227-3b2b24cf1275.mock.pstmn.io/auth/api/login/";
       const { data: res } = await axios.post(url, data);
       //storing jwt in the local storage
